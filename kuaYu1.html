@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jsonp跨域请求http://api.jirengu.com/fm/getChannels.php?callback=appendHtml</title>
+</head>
+<body>
+<button class="change">点击跨域jsonp请求</button>
+<ul class="list">
+</ul>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+    $(function () {
+        var f = "";
+        $('body').on('click', '.change', function () {
+            if (f) {
+                clearTimeout(f);
+            }
+            console.log('点击次数');
+            f = setTimeout(function () {
+                var script = document.createElement('script');
+                script.src = 'http://api.jirengu.com/fm/getChannels.php?callback=appendHtml';
+//                document.head.appendChild(script);
+//                document.head.removeChild(script);
+                $('head').append(script);
+                $('head script').remove();
+            }, 300);
+        });
+    })
+
+    function appendHtml(data) {
+        var html = '';
+        for (var i = 0; i < data.channels.length; i++) {
+            html += `<li>${i + 1}. ${data.channels[i].channel_id}</li>`;
+        }
+        $('.list').html(html);
+    }
+
+
+</script>
+</html>
+
+
+
+
+
+
+
