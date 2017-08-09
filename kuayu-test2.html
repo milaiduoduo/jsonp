@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>jsonp获取数据</button>
+<ul class="list"></ul>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
+<script>
+    $(function () {
+        var f = "";
+
+
+        $('body').on('click', 'button', () => {
+            if (f) {
+                clearTimeout(f);
+                console.log('true',f);
+            }
+            f = setTimeout(() => {
+                console.log('in click');
+                $('head').append('<script src="http://api.jirengu.com/fm/getChannels.php?callback=appendHtml"><\/script>');
+                $('head script').remove();
+            }, 500);
+            console.log('f',f);
+        });
+
+    })
+    function appendHtml(data) {
+        var childData = data.channels;
+        var html = "";
+        for (var i = 0; i < childData.length; i++) {
+            html += `<li>${i + 1}.  ${childData[i].channel_id}</li>`;
+        }
+        $('.list').html(html);
+    }
+</script>
+</html>

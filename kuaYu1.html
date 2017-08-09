@@ -16,9 +16,10 @@
         $('body').on('click', '.change', function () {
             if (f) {
                 clearTimeout(f);
+                console.log('true',f);
             }
-            console.log('点击次数');
             f = setTimeout(function () {
+                console.log('in click');
                 var script = document.createElement('script');
                 script.src = 'http://api.jirengu.com/fm/getChannels.php?callback=appendHtml';
 //                document.head.appendChild(script);
@@ -26,6 +27,7 @@
                 $('head').append(script);
                 $('head script').remove();
             }, 300);
+            console.log('f',f);
         });
     })
 
